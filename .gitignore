@@ -449,3 +449,4 @@ $RECYCLE.BIN/
 ##
 .vscode/*
 /.vscode/
+/Mc2.CrudTest.AcceptanceTests/Features/CustomerManager.feature.cs
