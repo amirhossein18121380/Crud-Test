@@ -9,30 +9,32 @@ namespace Mc2.CrudTest.Presentation.Server.Customers.Features.AddCustomer;
 
 public class AddCustomerHandler : ICommandHandler<AddCustomer, AddCustomerResult>
 {
-    private readonly CustomerDbContext _eCommerceDbContext;
+    private readonly CustomerDbContext _customerDbContext;
 
-    public AddCustomerHandler(CustomerDbContext eCommerceDbContext)
+    public AddCustomerHandler(CustomerDbContext customerDbContext)
     {
-        _eCommerceDbContext = eCommerceDbContext;
+        _customerDbContext = customerDbContext;
     }
 
     public async Task<AddCustomerResult> Handle(AddCustomer request, CancellationToken cancellationToken)
     {
 
-        var product = await _eCommerceDbContext.Customers.SingleOrDefaultAsync(x => x.Id == request.Id,
+        var customer = await _customerDbContext.Customers.SingleOrDefaultAsync(x => x.FirstName == request.FirstName
+                || x.Lastname == request.Lastname
+            || x.DateOfBirth == request.DateOfBirth,
             cancellationToken);
 
-        if (product is not null)
-        {
-            throw new CustomerAlreadyExistException();
-        }
+        if (customer is not null) throw new CustomerAlreadyExistException();
+
+        if (_customerDbContext.Customers.Any(x => x.Email == request.Email)) throw new EmailAlreadyExistException();
 
         var customerEntity = Customer.Create(request.Id, request.FirstName,
             request.Lastname, request.DateOfBirth, request.PhoneNumber, request.Email,
             request.BankAccountNumber);
 
-        var newProduct = (await _eCommerceDbContext.Customers.AddAsync(customerEntity, cancellationToken)).Entity;
+        var newProduct = (await _customerDbContext.Customers.AddAsync(customerEntity, cancellationToken)).Entity;
 
+        await _customerDbContext.SaveChangesAsync();
         return new AddCustomerResult(newProduct.Id);
     }
 }

@@ -2,5 +2,5 @@
 
 namespace Mc2.CrudTest.Presentation.Server.Customers.Features.DeleteCustomer;
 
-public record DeleteCustomer(Guid Id) : ICommand<bool>
+public record DeleteCustomer(ulong Id) : ICommand<bool>
 { }

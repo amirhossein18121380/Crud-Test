@@ -25,8 +25,20 @@ public class DeleteCustomerHandler : ICommandHandler<DeleteCustomer, bool>
             throw new CustomerNotFoundException();
         }
 
-        var deletedCustomer = await _context.Customers.ExecuteDeleteAsync();
+        var deletedCustomer = _context.Customers.Remove(customer).Entity;
 
-        return deletedCustomer == 1;
+        try
+        {
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+        catch (Exception ex)
+        {
+            // Handle any potential exceptions here
+            // Log the error or perform any necessary actions
+            // You can choose to rethrow the exception if needed
+            return false;
+        }
+
+        return true;
     }
 }

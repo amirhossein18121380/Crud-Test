@@ -24,20 +24,16 @@ namespace Mc2.CrudTest.Presentation.Server.Migrations
 
             modelBuilder.Entity("Mc2.CrudTest.Presentation.Server.Customers.Models.Customer", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<decimal>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("decimal(20,0)");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<decimal>("Id"));
 
                     b.Property<string>("BankAccountNumber")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("CreatedBy")
-                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
@@ -54,12 +50,6 @@ namespace Mc2.CrudTest.Presentation.Server.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastModified")
-                        .HasColumnType("datetime2");
-
-                    b.Property<long?>("LastModifiedBy")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Lastname")
                         .IsRequired()

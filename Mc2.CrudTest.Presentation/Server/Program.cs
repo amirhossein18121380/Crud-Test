@@ -1,6 +1,5 @@
 using Mc2.CrudTest.Presentation.Server.Extension;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.SwaggerUI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,21 +15,8 @@ builder.AddInfrastructure();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/swagger.json", " Web API");
-        options.EnableFilter();
-        options.DisplayRequestDuration();
-        options.ShowExtensions();
-        options.ShowCommonExtensions();
-        options.EnableValidator();
-        options.EnableDeepLinking();
-        options.DocExpansion(DocExpansion.List);
-    });
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseInfrastructure();
 app.UseHttpsRedirection();

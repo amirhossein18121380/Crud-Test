@@ -3,6 +3,6 @@
 public record AddCustomerRequestDto(string FirstName, string LastName, DateTime DateOfBirth,
         string PhoneNumber, string Email, string BankAccountNumber);
 
-public record AddCustomerResult(Guid Id);
+public record AddCustomerResult(ulong Id);
 
-public record AddCustomerResponseDto(Guid Id);
+public record AddCustomerResponseDto(ulong Id);

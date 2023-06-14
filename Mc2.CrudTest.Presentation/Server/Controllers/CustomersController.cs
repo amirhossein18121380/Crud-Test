@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Mc2.CrudTest.Presentation.Server.Customers.Features.AddCustomer;
+using Mc2.CrudTest.Presentation.Server.Customers.Features.DeleteCustomer;
 using Mc2.CrudTest.Presentation.Server.Customers.Features.GettingAllCustomersByPage;
+using Mc2.CrudTest.Presentation.Server.Customers.Features.UpdateCustomer;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,6 +59,7 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
         /// An unexpected error occurred on the server
         /// </response>
         [HttpPost]
+        [Route("AddCustomer")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -71,6 +74,7 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
 
 
         [HttpPost]
+        [Route("GetAllCustomers")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -80,6 +84,32 @@ namespace Mc2.CrudTest.Presentation.Server.Controllers
             var command = _mapper.Map<GetCustomersByPage>(request);
             var result = await _mediator.Send(command);
             var response = _mapper.Map<GetCustomersByPageResponseDto>(result);
+            return Ok(response);
+        }
+
+        [HttpDelete]
+        [Route("DeleteCustomer")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> DeleteCustomer(DeleteCustomer request)
+        {
+            var response = await _mediator.Send(request);
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [Route("UpdateCustomer")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> UpdateCustomer(UpdateCustomerRequestDto request)
+        {
+            var command = _mapper.Map<UpdateCustomer>(request);
+            var result = await _mediator.Send(command);
+            var response = new UpdateCustomerResponseDto(result);
             return Ok(response);
         }
     }

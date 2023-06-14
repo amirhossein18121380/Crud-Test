@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -15,7 +14,7 @@ namespace Mc2.CrudTest.Presentation.Server.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<decimal>(type: "decimal(20,0)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Lastname = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: false),

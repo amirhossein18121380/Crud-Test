@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 using PhoneNumbers;
 
-namespace Mc2.CrudTest.Presentation.Server.Customers.Features.AddCustomer;
+namespace Mc2.CrudTest.Presentation.Server.Customers.Features.UpdateCustomer;
 
-public class AddCustomerValidator : AbstractValidator<AddCustomer>
+public class UpdateCustomerValidator : AbstractValidator<UpdateCustomer>
 {
-    public AddCustomerValidator()
+
+    public UpdateCustomerValidator()
     {
         RuleFor(customer => customer.FirstName)
             .NotEmpty();
@@ -16,6 +17,13 @@ public class AddCustomerValidator : AbstractValidator<AddCustomer>
             .Must(BeValidMobileNumber)
             .WithMessage("Invalid mobile number");
 
+        //RuleFor(p => p.PhoneNumber)
+        //    .NotEmpty()
+        //    .NotNull().WithMessage("Phone Number is required.")
+        //    .MinimumLength(10).WithMessage("PhoneNumber must not be less than 10 characters.")
+        //    .MaximumLength(20).WithMessage("PhoneNumber must not exceed 50 characters.")
+        //    .Matches(new Regex(@"((\(\d{3}\) ?)|(\d{3}-))?\d{3}-\d{4}")).WithMessage("PhoneNumber not valid");
+
         RuleFor(customer => customer.Email)
             .NotEmpty().WithMessage("Email is required")
             .EmailAddress().WithMessage("Invalid email address");
@@ -23,8 +31,7 @@ public class AddCustomerValidator : AbstractValidator<AddCustomer>
 
         RuleFor(customer => customer.BankAccountNumber)
             .NotEmpty().WithMessage("Bank account number is required.")
-            .Matches(@"^\d+$")//contains only digits
-            .WithMessage("Bank account number must contain only digits.")
+            .Matches(@"^\d+$").WithMessage("Bank account number must contain only digits.")
             .Length(10, 20).WithMessage("Bank account number must be between 10 and 20 digits.");
     }
 
