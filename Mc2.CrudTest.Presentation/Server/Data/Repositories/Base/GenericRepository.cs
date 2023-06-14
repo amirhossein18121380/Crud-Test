@@ -1,5 +1,4 @@
-﻿using Mc2.CrudTest.Presentation.Server.Data.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace Mc2.CrudTest.Presentation.Server.Data.Repositories.Base;
@@ -7,10 +6,10 @@ namespace Mc2.CrudTest.Presentation.Server.Data.Repositories.Base;
 public class GenericRepository<T> : IGenericRepository<T>
       where T : class
 {
-    private readonly DbContext _context;
+    private readonly CustomerDbContext _context;
     private readonly DbSet<T> dbSet;
 
-    public GenericRepository(DbContext context)
+    public GenericRepository(CustomerDbContext context)
     {
         _context = context;
         dbSet = context.Set<T>();
@@ -75,7 +74,7 @@ public class GenericRepository<T> : IGenericRepository<T>
 
     public virtual EntityState SoftDelete(T entity)
     {
-        entity.GetType().GetProperty("IsActive")?.SetValue(entity, false);
+        entity.GetType().GetProperty("IsDeleted")?.SetValue(entity, false);
         return dbSet.Update(entity).State;
     }
 

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Mc2.CrudTest.Presentation.Server.Data;
 
-public sealed class DbContext : AppDbContextBase
+public sealed class CustomerDbContext : AppDbContextBase
 {
-    public DbContext(DbContextOptions<DbContext> options) : base(options)
+    public CustomerDbContext(DbContextOptions<CustomerDbContext> options) : base(options)
     {
     }
     public DbSet<Customer> Customers => Set<Customer>();
@@ -15,6 +15,7 @@ public sealed class DbContext : AppDbContextBase
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+        builder.ApplyConfigurationsFromAssembly(typeof(MyRoot).Assembly);
         builder.ApplyConfiguration(new CustomerConfiguration());
     }
 }

@@ -1,31 +1,34 @@
-﻿namespace Mc2.CrudTest.Presentation.Shared.Core.Pagination;
+﻿using Microsoft.EntityFrameworkCore;
+using Sieve.Models;
+using Sieve.Services;
 
-//public static class Extensions
-//{
-//    public static async Task<IPageList<TEntity>> ApplyPagingAsync<TEntity>(
-//        this IQueryable<TEntity> queryable,
-//        IPageRequest pageRequest,
-//        ISieveProcessor sieveProcessor,
-//        CancellationToken cancellationToken = default
-//    )
-//        where TEntity : class
-//    {
-//        var sieveModel = new SieveModel
-//        {
-//            PageSize = pageRequest.PageSize,
-//            Page = pageRequest.PageNumber,
-//            Sorts = pageRequest.SortOrder,
-//            Filters = pageRequest.Filters
-//        };
+namespace Mc2.CrudTest.Presentation.Shared.Core.Pagination;
 
-//        var result = sieveProcessor.Apply(sieveModel, queryable, applyPagination: false);
-//        var total = result.Count();
-//        result = sieveProcessor.Apply(sieveModel, queryable, applyFiltering: false, applySorting: false); // Only applies pagination
+public static class Extensions
+{
+    public static async Task<IPageList<TEntity>> ApplyPagingAsync<TEntity>(
+        this IQueryable<TEntity> queryable,
+        IPageRequest pageRequest,
+        ISieveProcessor sieveProcessor,
+        CancellationToken cancellationToken = default
+    )
+        where TEntity : class
+    {
+        var sieveModel = new SieveModel
+        {
+            PageSize = pageRequest.PageSize,
+            Page = pageRequest.PageNumber,
+            Sorts = pageRequest.SortOrder,
+            Filters = pageRequest.Filters
+        };
 
-//        var items = await result
-//            .ToAsyncEnumerable()
-//            .ToListAsync(cancellationToken: cancellationToken);
+        var result = sieveProcessor.Apply(sieveModel, queryable, applyPagination: false);
+        var total = result.Count();
+        result = sieveProcessor.Apply(sieveModel, queryable, applyFiltering: false, applySorting: false); // Only applies pagination
 
-//        return PageList<TEntity>.Create(items.AsReadOnly(), pageRequest.PageNumber, pageRequest.PageSize, total);
-//    }
-//}
+        var items = await result.ToListAsync(cancellationToken: cancellationToken);
+
+
+        return PageList<TEntity>.Create(items.AsReadOnly(), pageRequest.PageNumber, pageRequest.PageSize, total);
+    }
+}

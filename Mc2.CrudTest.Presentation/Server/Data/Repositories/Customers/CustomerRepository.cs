@@ -5,7 +5,7 @@ namespace Mc2.CrudTest.Presentation.Server.Data.Repositories.Customers
 {
     public class CustomerRepository : GenericRepository<Customer>, ICustomerRepository
     {
-        public CustomerRepository(DbContext context) : base(context)
+        public CustomerRepository(CustomerDbContext context) : base(context)
         {
         }
     }

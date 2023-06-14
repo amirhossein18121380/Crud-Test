@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Mc2.CrudTest.Presentation.Server.Data.Repositories.Interfaces;
+namespace Mc2.CrudTest.Presentation.Server.Data.Repositories.Base;
 
 /// <summary>
 /// Interface for generic repository for crud operations

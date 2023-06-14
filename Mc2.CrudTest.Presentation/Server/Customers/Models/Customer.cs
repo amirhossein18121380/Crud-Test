@@ -6,12 +6,12 @@ namespace Mc2.CrudTest.Presentation.Server.Customers.Models;
 
 public record Customer : Aggregate<Guid>
 {
-    public string FirstName { get; private set; }
-    public string Lastname { get; private set; }
+    public string? FirstName { get; private set; }
+    public string? Lastname { get; private set; }
     public DateTime DateOfBirth { get; private set; }
-    public string PhoneNumber { get; private set; }
-    public string Email { get; private set; }
-    public string BankAccountNumber { get; private set; }
+    public string? PhoneNumber { get; private set; }
+    public string? Email { get; private set; }
+    public string? BankAccountNumber { get; private set; }
 
     public static Customer Create(Guid id, string firstName, string lastName, DateTime dateOfBirth, string phoneNumber, string email, string bankAccountNumber, bool isDeleted = false)
     {

@@ -11,10 +11,9 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 
         builder.HasKey(u => u.Id);
         builder.Property(u => u.FirstName).IsRequired().HasMaxLength(50);
-        builder.Property(u => u.Lastname).IsRequired().HasMaxLength(100);
-        builder.Property(u => u.Lastname).IsRequired().HasMaxLength(100);
-        builder.Property(u => u.DateOfBirth).IsRequired().HasMaxLength(50);
-        builder.Property(u => u.PhoneNumber).IsRequired().HasMaxLength(50);
+        builder.Property(u => u.Lastname).IsRequired().HasMaxLength(50);
+        builder.Property(u => u.DateOfBirth).IsRequired();
+        builder.Property(u => u.PhoneNumber).IsRequired().HasMaxLength(13);
         builder.Property(u => u.Email).IsRequired().HasMaxLength(50);
         builder.Property(u => u.BankAccountNumber).IsRequired().HasMaxLength(50);
     }

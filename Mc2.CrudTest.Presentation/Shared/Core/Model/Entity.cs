@@ -8,5 +8,4 @@ public abstract record Entity<T> : IEntity<T>
     public DateTime? LastModified { get; set; }
     public long? LastModifiedBy { get; set; }
     public bool IsDeleted { get; set; }
-    public long Version { get; set; }
 }

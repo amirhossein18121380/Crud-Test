@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 namespace Mc2.CrudTest.Presentation.Server.Data.Seed;
 public class DataSeeder : IDataSeeder
 {
-    private readonly DbContext _customerDbContext;
+    private readonly CustomerDbContext _customerDbContext;
 
-    public DataSeeder(DbContext customerDbContext)
+    public DataSeeder(CustomerDbContext customerDbContext)
     {
         _customerDbContext = customerDbContext;
     }
