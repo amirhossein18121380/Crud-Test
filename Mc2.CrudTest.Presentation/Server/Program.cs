@@ -18,6 +18,18 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+//app.UseCors(corsBuilder =>
+//{
+//    CorsOptions cors = app.Configuration
+//        .GetSection(CorsOptions.ConfigurationKey)
+//        .Get<CorsOptions>();
+
+//    corsBuilder.WithOrigins(cors!.AllowedOrigins);
+//    corsBuilder.WithMethods(cors!.AllowedMethods);
+//    corsBuilder.WithHeaders(cors!.AllowedHeaders);
+//    corsBuilder.AllowCredentials();
+//});
+
 app.UseInfrastructure();
 app.UseHttpsRedirection();
 

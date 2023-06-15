@@ -26,11 +26,10 @@ public class UpdateCustomerHandler : ICommandHandler<UpdateCustomer, UpdateCusto
 
         var customerEntity = Customer.Update(request.Id, request.FirstName,
             request.Lastname, request.DateOfBirth, request.PhoneNumber, request.Email,
-            request.BankAccountNumber);
+        request.BankAccountNumber);
 
         var updatedCustomer = _customerDbContext.Customers.Update(customerEntity).Entity;
         await _customerDbContext.SaveChangesAsync();
-
-        return new UpdateCustomerResult(updatedCustomer);
+        return new UpdateCustomerResult(customerEntity);
     }
 }

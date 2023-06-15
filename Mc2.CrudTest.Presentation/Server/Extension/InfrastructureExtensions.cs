@@ -18,27 +18,21 @@ public static class InfrastructureExtensions
         builder.Services.AddScoped<ISieveProcessor, SieveProcessor>();
         builder.Services.AddCustomMediatR(typeof(MyRoot).Assembly);
         builder.Services.AddValidatorsFromAssembly(typeof(MyRoot).Assembly);
-        //builder.Services.AddCustomDbContext<DbContext>();
-        //builder.Services.AddAutoMapper(typeof(MyRoot).Assembly);
         builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
-
         builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 
 
         builder.Services.Configure<SqlOptions>(builder.Configuration.GetSection("SqlOptions"));
         var sqlOptions = builder.Configuration.GetSection("SqlOptions").Get<SqlOptions>();
-
         builder.Services.AddDbContext<CustomerDbContext>(options =>
         {
             options.UseSqlServer(sqlOptions.ConnectionString);
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            options.EnableSensitiveDataLogging();
         });
-
 
         builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
         builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         return builder;

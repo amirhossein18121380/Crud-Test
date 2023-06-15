@@ -1,6 +1,2 @@
-﻿namespace Mc2.CrudTest.Presentation.Server
-{
-    public class MyRoot
-    {
-    }
-}
+﻿namespace Mc2.CrudTest.Presentation.Server;
+public class MyRoot { }
